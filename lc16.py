@@ -16,6 +16,3 @@ class Solution(object):
                 else:
                     l += 1
         return s1
-
-solution = Solution()
-print solution.threeSumClosest([0,2,1,-3], 1)
