@@ -6,16 +6,36 @@ class Solution(object):
         :rtype: List[int]
         """
         dict = {}
-        total_length = 0
-        for i in xrange(len(words)):
-            word = words[i]
-            total_length += len(word)
-            if not dict[word[0]]:
-                dict[word[0]] = [i]
+        for word in words:
+            if word in dict:
+                dict[word] += 1
             else:
-                dict[word[0]].append(i)
-        if len(s) < total_length:
-            return []
-        res = []
-        for i in xrange(len(s) - total_length + 1):
-            tmp = copy.
+                dict[word] = 1
+        wl = len(words[0])
+        ans = []
+
+        for k in xrange(wl):
+            left = k
+            subd = {}
+            count = 0
+            for j in xrange(k, len(s) - k + 1, wl):
+                tword = s[j:j+wl]
+                if tword in dict:
+                    if tword in subd:
+                        subd[tword] += 1
+                    else:
+                        subd[tword] = 1
+                    count += 1
+                    # push the window
+                    while subd[tword] > dict[tword]:
+                        subd[s[left:left+wl]] -= 1
+                        count -= 1
+                        left += wl
+                    if count == len(words):
+                        ans.append(left)
+                else:
+                    count = 0
+                    left = j + wl
+                    subd = {}
+        return ans
+
