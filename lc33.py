@@ -5,14 +5,26 @@ class Solution(object):
         :type target: int
         :rtype: int
         """
-        length = len(nums)
-        right = length - 1
-        left = 0
-        while left <= right:
-            mid = (right + left) / 2
-            if nums[mid] > nums[right]:
-                left = mid + 1
+        if not nums:
+            return 0
+        n = len(nums)
+        low = 0
+        high = n - 1
+        while low <= high:
+            mid = low + (high - low) / 2
+            if nums[mid] == target:
+                return mid
+            if nums[low] <= nums[mid]:
+                if nums[low] <= target < nums[mid]:
+                    high = mid - 1
+                else:
+                    low = mid + 1
             else:
-                right = mid - 1
-        pivot = right
-        left, right = 0, length - 1
+                if nums[high] >= target > nums[mid]:
+                    low = mid + 1
+                else:
+                    high = mid - 1
+        return -1
+
+solution = Solution()
+print solution.search([5,6,7,8,9,0,1,2,3,4], 5)
