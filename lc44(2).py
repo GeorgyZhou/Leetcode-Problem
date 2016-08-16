@@ -20,4 +20,4 @@ class Solution(object):
         return dp[lens]
 
 solution = Solution()
-print solution.isMatch('aa','a')
+print solution.isMatch('aa','aa')

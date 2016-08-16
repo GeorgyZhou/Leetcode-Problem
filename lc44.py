@@ -24,4 +24,4 @@ class Solution(object):
         return dp[lens][lenp]
 
 solution = Solution()
-print solution.isMatch('c', '*?*')
+print solution.isMatch('aa', 'aa')
