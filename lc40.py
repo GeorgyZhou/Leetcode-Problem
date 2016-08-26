@@ -5,20 +5,28 @@ class Solution(object):
         :type target: int
         :rtype: List[List[int]]
         """
-
         ret = []
-
         for i in xrange(len(candidates)):
-            if i == target:
-                ret.append([i])
-            elif i < target:
-                for former in Solution.combinationSum2(self, candidates, target - i):
-                    if i not in former:
-                        former.append(i)
-                        former.sort()
-                        if former not in ret:
-                            ret.append(former)
+            if candidates[i] < target:
+                for res in Solution.combinationSum(self, candidates, target - candidates[i], i + 1):
+                    res.append(candidates[i])
+                    res.sort()
+                    if res not in ret:
+                        ret.append(res)
+            elif candidates[i] == target and [candidates[i]] not in ret:
+                    ret.append([candidates[i]])
+        return ret
+
+    def combinationSum(self, candidates, target, start):
+        ret = []
+        for i in xrange(start, len(candidates), 1):
+            if candidates[i] < target:
+                for res in Solution.combinationSum(self, candidates, target - candidates[i], i + 1):
+                    res.append(candidates[i])
+                    ret.append(res)
+            elif candidates[i] == target:
+                ret.append([candidates[i]])
         return ret
 
 solution = Solution()
-print solution.combinationSum2([1,2,3,5,9],10)
+print solution.combinationSum2([10, 1, 2, 7, 6, 1, 5], 8)
