@@ -3,13 +3,9 @@ class Solution(object):
         self.root = dict()
         self.parent = dict()
         for x, y in edges:
-            if x >= n or y >= n:
-                continue
             if x in self.parent and y in self.parent:
                 rx = self.find_root(x)
                 ry = self.find_root(y)
-                if rx == ry:
-                    continue
                 if self.root[rx] > self.root[ry]:
                     self.parent[ry] = rx
                     del self.root[ry]
@@ -28,7 +24,7 @@ class Solution(object):
                 self.parent[x] = x
                 self.root[x] = 2
                 self.parent[y] = x
-        return n - len(self.parent) + len(self.root)
+        return len(self.root)
 
     def find_root(self, c):
         if c in self.root:

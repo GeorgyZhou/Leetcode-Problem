@@ -28,7 +28,7 @@ class Solution(object):
                 self.parent[x] = x
                 self.root[x] = 2
                 self.parent[y] = x
-        return n - len(self.parent) + len(self.root)
+        return n - len(parent) + len(self.root)
 
     def find_root(self, c):
         if c in self.root:
