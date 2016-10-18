@@ -1,35 +1,23 @@
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
 class Solution(object):
-    def rotateRight(self, head, k):
+    def uniquePaths(self, m, n):
         """
-        :type head: ListNode
-        :type k: int
-        :rtype: ListNode
+        :type m: int
+        :type n: int
+        :rtype: int
         """
-        l, cur = 0, head
-        while cur is not None:
-            cur = cur.next
-            l += 1
-        if l <= 1:
-            return head
-        k %= l
-        if k == 0:
-            return head
-        count = 0
-        cur = head
-        while cur is not None:
-            count += 1
-            if count == l - k:
-                newhead = cur.next
-                cur.next = None
-                iter = newhead
-                while iter.next is not None:
-                    iter = iter.next
-                iter.next = head
-                return newhead
-            cur = cur.next
+        if m == 0 or n == 0:
+            return 0
+        dp = [[None for _ in xrange(n+1)] for _ in xrange(m+1)]
+        for i in xrange(m+1):
+            dp[i][0] = 0
+        for i in xrange(n+1):
+            dp[0][i] = 0
+        dp[1][1] = 1
+        flag = True
+        for i in xrange(1, m+1):
+            for j in xrange(1, n+1):
+                if flag:
+                    flag = False
+                else:
+                    dp[i][j] = dp[i-1][j] + dp[i][j-1]
+        return dp[m][n]
