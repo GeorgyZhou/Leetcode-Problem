@@ -5,13 +5,9 @@ class Solution(object):
         :type b: int
         :rtype: int
         """
-        if b == 0:
-            return a
-        if a/b == -1 and a % b == 0:
-            return 0
-        sum = (a^b)
-        carry = (a&b) << 1
-        return Solution.getSum(self, sum, carry)
-
-s = Solution()
-print s.getSum(-12, -8)
+        MIN = 0x80000000
+        MAX = 0x7FFFFFFF
+        mask = 0xFFFFFFFF
+        while b != 0:
+            a, b = (a ^ b) & mask, ((a & b) << 1) & mask
+        return a if a <= MAX else ~(a ^ mask)
