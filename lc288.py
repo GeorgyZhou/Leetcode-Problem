@@ -30,7 +30,6 @@ class ValidWordAbbr(object):
         elif self.dic[tmp] == word:
             return True
         else:
-            print 'hello'
             return False
 
 
