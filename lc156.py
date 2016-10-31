@@ -25,4 +25,5 @@ class Solution(object):
             cur.left = right[i]
             cur.right = left[i]
             cur = cur.right
+        cur.right, cur.left = None, None
         return newroot
