@@ -14,4 +14,4 @@ class Solution(object):
                 comb.append(last +[i, n/i])
                 self.rec(n/i, i, comb, last + [i])
             i += 1
-        return comb
+        return combgot a
