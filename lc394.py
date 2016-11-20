@@ -4,35 +4,25 @@ class Solution(object):
         :type s: str
         :rtype: str
         """
-        n = len(s)
-        if n == 0:
-            return ''
-        ret = []
-        stack = []
-        tmp = 0
-        for i in xrange(n):
-            if '0' <= s[i] <= '9':
-                tmp = tmp * 10 + int(s[i]) 
-            elif s[i] == ']':
-                cur = stack[-1]
-                del stack[-1]
-                repeat = cur[0]
-                del cur[0]
-                strings = ''.join(cur)
-                strings = ''.join([strings for _ in xrange(repeat)])
-                if len(stack) == 0:
-                    ret.append(strings)
-                else:
-                    stack[-1].append(strings)
-            elif s[i] != '[':
-                if len(stack) > 0:
-                    stack[-1].append(s[i])
-                else:
-                    ret.append(s[i])
-            elif s[i] == '[':
-                stack.append([tmp])
-                tmp = 0
-        return ''.join(ret)
-
-s = Solution()
-print s.decodeString("2[abc]0[cd]ef")           
+        s += "]"
+        res, index = self.rec(s, 0)
+        return res
+    
+    def rec(self, s, index):
+        i, l = index, len(s)
+        ret = ""
+        num = 0
+        while i < l:
+            if s[i] == "[":
+                tmp, ni = self.rec(s, i+1)
+                ret += (num * tmp)
+                num = 0
+                i = ni
+            elif s[i] == "]":
+                return ret, i+1 
+            elif "0" <= s[i] <= "9":
+                num = num * 10 + int(s[i])
+                i += 1
+            else:
+                ret += s[i]
+                i += 1
