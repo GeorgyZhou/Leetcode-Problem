@@ -19,7 +19,7 @@ class Solution(object):
         tmp = self.first.val
         self.first.val = self.second.val
         self.second.val = tmp
-    
+
     def rec(self, node):
         if not node:
             return
@@ -30,5 +30,3 @@ class Solution(object):
             self.second = node
         self.prev = node
         self.rec(node.right)
-        
-        
