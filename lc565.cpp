@@ -2,18 +2,18 @@ class Solution {
 public:
     int arrayNesting(vector<int>& nums) {
         unordered_set<int> sets;
-        int res = 0;
-        for (int& num : nums) {
+        int res = 0, count, num;
+        for (int i = 0; i < nums.size(); ++i) {
+            num = nums[i];
             if (sets.find(num) != sets.end()) continue;
-            res = max(dfs(nums, sets, num, 0), res);
+            count = 0;
+            while (sets.find(num) == sets.end()) {
+                ++count;
+                sets.insert(num);
+                num = nums[num];
+            }
+            res = max(res, count);
         }
         return res;
-    }
-    
-private:
-    int dfs(vector<int>& nums, unordered_set<int> sets, int num, int count) {
-        if (sets.find(num) != sets.end()) return count;
-        sets.insert(num);
-        return dfs(nums, sets, nums[num], count + 1);
     }
 };
